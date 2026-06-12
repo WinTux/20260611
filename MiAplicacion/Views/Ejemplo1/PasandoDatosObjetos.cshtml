@@ -1,0 +1,47 @@
+﻿<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Datos del producto</h3>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-striped align-middle">
+                <tbody>
+                    <tr>
+                        <th class="w-25">Id</th>
+                        <td>@ViewBag.Producto.Id</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>@ViewBag.Producto.Nombre</td>
+                    </tr>
+                    <tr>
+                        <th>Precio</th>
+                        <td>
+                            <span class="badge bg-success fs-6">
+                                @ViewBag.Producto.Precio
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Cantidad</th>
+                        <td>@ViewBag.Producto.Cantidad</td>
+                    </tr>
+                    <tr>
+                        <th>Foto</th>
+                        <td>
+                            <img src="~/imagenes/@ViewBag.Producto.Foto"
+                                 alt="@ViewBag.Producto.Nombre"
+                                 class="img-thumbnail"
+                                 style="max-width:200px;" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                Volver
+            </a>
+        </div>
+    </div>
+</div>

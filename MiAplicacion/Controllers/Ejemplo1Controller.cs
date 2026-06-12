@@ -18,5 +18,18 @@ namespace MiAplicacion.Controllers
             ViewBag.fechaNacimiento = DateTime.Now;
             return View();
         }
+        public IActionResult PasandoDatosObjetos() // Acción para la ruta /Ejemplo1/PasandoDatos2
+        {
+            var producto = new Models.Producto
+            {
+                Id = "pro01",
+                Nombre = "Camiseta",
+                Precio = 19.99m,
+                Cantidad = 100,
+                Foto = "camiseta.jpeg"
+            };
+            ViewBag.Producto = producto;
+            return View();
+        }
     }
 }
