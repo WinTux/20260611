@@ -1,0 +1,63 @@
+﻿@model MiAplicacion.Models.CuentaViewModel
+<h3>Registro Desasrrollador</h3>
+<form asp-controller="Cuenta" asp-action="Registrar" method="post">
+    <table border="0" cellpadding="2" cellspacing="2">
+        <tr>
+            <td>Nombre de usuario</td>
+            <td>
+                <input asp-for="cuenta.NombreUsuario" />
+            </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>
+                <input type="password" asp-for="cuenta.Password" />
+            </td>
+        </tr>
+        <tr>
+            <td>Descripción</td>
+            <td>
+                <textarea cols="30" rows="5" asp-for="cuenta.Descripcion" ></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Disponible</td>
+            <td>
+                <input type="checkbox" asp-for="cuenta.Disponible" />
+            </td>
+        </tr>
+        <tr>
+            <td>Genero</td>
+            <td>
+                <input type="radio" value="F" asp-for="cuenta.Genero" /> Femenino<br />
+                <input type="radio" value="M" asp-for="cuenta.Genero" /> Masculino<br />
+                <input type="radio" value="O" asp-for="cuenta.Genero" /> Otro
+            </td>
+        </tr>
+        <tr>
+            <td>Lenguajes de programación</td>
+            <td>
+                @for (var i = 0; i < Model.Lenguajes.Count; i++)
+                {
+                    <input type="hidden" asp-for="@Model.Lenguajes[i].Id" />
+                    <input type="hidden" asp-for="@Model.Lenguajes[i].Nombre" />
+                    <input type="checkbox" asp-for="@Model.Lenguajes[i].estaMarcado"/>
+                    <label asp-for="@Model.Lenguajes[i].Id">@Model.Lenguajes[i].Nombre</label>
+                }
+             </td>
+        </tr>
+        <tr>
+            <td>Cargo anterior:</td>
+            <td>
+                <select asp-for="cuenta.Cargo" asp-items="@Model.Cargos"></select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit"  value="REGISTRAR" />
+                <input type="hidden" asp-for="cuenta.Id" />
+            </td>
+        </tr>
+    </table>
+</form>
