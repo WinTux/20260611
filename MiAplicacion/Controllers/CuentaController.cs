@@ -33,8 +33,15 @@ namespace MiAplicacion.Controllers
             cuentaViewModel.Cargos = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(listaCargos, "Id", "Nombre");
             return View("Index", cuentaViewModel);
         }
-
-        //public IActionResult Registrar() { 
-        //}
+        [Route("Registrar")]
+        [HttpPost]
+        public IActionResult Registrar(CuentaViewModel cuentaViewModel, List<Lenguaje> lenguajes) {
+            cuentaViewModel.cuenta.Lenguajes = new List<string>();
+            foreach (var len in lenguajes)
+                if (len.estaMarcado)
+                    cuentaViewModel.cuenta.Lenguajes.Add(len.Id);
+            ViewBag.Cuenta = cuentaViewModel.cuenta;
+            return View("Exito");
+        }
     }
 }

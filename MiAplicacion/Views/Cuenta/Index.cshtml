@@ -1,63 +1,132 @@
 ﻿@model MiAplicacion.Models.CuentaViewModel
-<h3>Registro Desasrrollador</h3>
-<form asp-controller="Cuenta" asp-action="Registrar" method="post">
-    <table border="0" cellpadding="2" cellspacing="2">
-        <tr>
-            <td>Nombre de usuario</td>
-            <td>
-                <input asp-for="cuenta.NombreUsuario" />
-            </td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td>
-                <input type="password" asp-for="cuenta.Password" />
-            </td>
-        </tr>
-        <tr>
-            <td>Descripción</td>
-            <td>
-                <textarea cols="30" rows="5" asp-for="cuenta.Descripcion" ></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td>Disponible</td>
-            <td>
-                <input type="checkbox" asp-for="cuenta.Disponible" />
-            </td>
-        </tr>
-        <tr>
-            <td>Genero</td>
-            <td>
-                <input type="radio" value="F" asp-for="cuenta.Genero" /> Femenino<br />
-                <input type="radio" value="M" asp-for="cuenta.Genero" /> Masculino<br />
-                <input type="radio" value="O" asp-for="cuenta.Genero" /> Otro
-            </td>
-        </tr>
-        <tr>
-            <td>Lenguajes de programación</td>
-            <td>
-                @for (var i = 0; i < Model.Lenguajes.Count; i++)
-                {
-                    <input type="hidden" asp-for="@Model.Lenguajes[i].Id" />
-                    <input type="hidden" asp-for="@Model.Lenguajes[i].Nombre" />
-                    <input type="checkbox" asp-for="@Model.Lenguajes[i].estaMarcado"/>
-                    <label asp-for="@Model.Lenguajes[i].Id">@Model.Lenguajes[i].Nombre</label>
-                }
-             </td>
-        </tr>
-        <tr>
-            <td>Cargo anterior:</td>
-            <td>
-                <select asp-for="cuenta.Cargo" asp-items="@Model.Cargos"></select>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit"  value="REGISTRAR" />
-                <input type="hidden" asp-for="cuenta.Id" />
-            </td>
-        </tr>
-    </table>
-</form>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Registro Desarrollador</h3>
+                </div>
+
+                <div class="card-body">
+                    <form asp-controller="Cuenta" asp-action="Registrar" method="post">
+
+                        <!-- Usuario -->
+                        <div class="mb-3">
+                            <label asp-for="cuenta.NombreUsuario" class="form-label">
+                                Nombre de usuario
+                            </label>
+                            <input asp-for="cuenta.NombreUsuario" class="form-control" />
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="cuenta.Password" class="form-label">
+                                Contraseña
+                            </label>
+                            <input type="password" asp-for="cuenta.Password" class="form-control" />
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="mb-3">
+                            <label asp-for="cuenta.Descripcion" class="form-label">
+                                Descripción
+                            </label>
+                            <textarea asp-for="cuenta.Descripcion"
+                                      class="form-control"
+                                      rows="4"></textarea>
+                        </div>
+
+                        <!-- Disponible -->
+                        <div class="form-check mb-3">
+                            <input asp-for="cuenta.Disponible" class="form-check-input" />
+                            <label asp-for="cuenta.Disponible" class="form-check-label">
+                                Disponible
+                            </label>
+                        </div>
+
+                        <!-- Género -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Género</label>
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       value="F"
+                                       asp-for="cuenta.Genero" />
+                                <label class="form-check-label">
+                                    Femenino
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       value="M"
+                                       asp-for="cuenta.Genero" />
+                                <label class="form-check-label">
+                                    Masculino
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       value="O"
+                                       asp-for="cuenta.Genero" />
+                                <label class="form-check-label">
+                                    Otro
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Lenguajes -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                Lenguajes de programación
+                            </label>
+
+                            @for (var i = 0; i < Model.Lenguajes.Count; i++)
+                            {
+                                <input type="hidden" asp-for="@Model.Lenguajes[i].Id" />
+                                <input type="hidden" asp-for="@Model.Lenguajes[i].Nombre" />
+
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           asp-for="@Model.Lenguajes[i].estaMarcado" />
+
+                                    <label class="form-check-label">
+                                        @Model.Lenguajes[i].Nombre
+                                    </label>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Cargo -->
+                        <div class="mb-4">
+                            <label asp-for="cuenta.Cargo" class="form-label">
+                                Cargo anterior
+                            </label>
+                            <select asp-for="cuenta.Cargo"
+                                    asp-items="@Model.Cargos"
+                                    class="form-select">
+                            </select>
+                        </div>
+
+                        <input type="hidden" asp-for="cuenta.Id" />
+
+                        <!-- Botones -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-person-plus"></i> Registrar
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
