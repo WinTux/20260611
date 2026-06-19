@@ -1,0 +1,207 @@
+﻿@model MiAplicacion.Models.Producto2
+<style>
+    .drop-zone {
+        border: 2px dashed #0d6efd;
+        border-radius: 12px;
+        padding: 40px 20px;
+        text-align: center;
+        cursor: pointer;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+        .drop-zone:hover {
+            background-color: #eef5ff;
+        }
+
+        .drop-zone.dragover {
+            background-color: #dbeafe;
+            border-color: #084298;
+            transform: scale(1.02);
+        }
+
+    .preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .preview-item {
+        width: 120px;
+        height: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+</style>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Registro de Producto</h3>
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-controller="Archivo"
+                          asp-action="Guardar2"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label asp-for="Id" class="form-label"></label>
+                            <input asp-for="Id" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Precio" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input asp-for="Precio" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Cantidad" class="form-label"></label>
+                            <input asp-for="Cantidad" class="form-control" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Foto del producto</label>
+
+                            <div id="dropZone" class="drop-zone">
+                                <div>
+                                    <i class="bi bi-cloud-arrow-up fs-1 text-primary"></i>
+                                    <h5 class="mt-2">Arrastra una imagen aquí</h5>
+                                    <p class="text-muted mb-0">
+                                        o haz clic para seleccionarla
+                                    </p>
+                                </div>
+
+                                <input type="file"
+                                       id="fotos"
+                                       name="fotos"
+                                       accept="image/*"
+                                       class="d-none"
+                                       multiple="multiple" />
+                            </div>
+
+                            <div id="previewContainer" class="preview-container"></div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-save"></i> Guardar
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+
+                                                const dropZone = document.getElementById("dropZone");
+                                                const fileInput = document.getElementById("fotos");
+                                                const previewContainer = document.getElementById("previewContainer");
+
+                                                // Abrir selector al hacer clic
+                                                dropZone.addEventListener("click", () => {
+                                                    fileInput.click();
+                                                });
+
+                                                // Selección manual
+                                                fileInput.addEventListener("change", () => {
+                                                    mostrarPreviews(fileInput.files);
+                                                });
+
+                                                // Evitar comportamiento por defecto
+                                                ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+                                                    dropZone.addEventListener(eventName, e => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                    });
+                                                });
+
+                                                // Efecto visual
+                                                ["dragenter", "dragover"].forEach(eventName => {
+                                                    dropZone.addEventListener(eventName, () => {
+                                                        dropZone.classList.add("dragover");
+                                                    });
+                                                });
+
+                                                ["dragleave", "drop"].forEach(eventName => {
+                                                    dropZone.addEventListener(eventName, () => {
+                                                        dropZone.classList.remove("dragover");
+                                                    });
+                                                });
+
+                                                // Soltar archivos
+                                                dropZone.addEventListener("drop", e => {
+
+                                                    const files = e.dataTransfer.files;
+
+                                                    // Copiar archivos al input
+                                                    const dt = new DataTransfer();
+
+                                                    for (let i = 0; i < files.length; i++) {
+                                                        dt.items.add(files[i]);
+                                                    }
+
+                                                    fileInput.files = dt.files;
+
+                                                    mostrarPreviews(files);
+                                                });
+
+                                                function mostrarPreviews(files) {
+
+                                                    previewContainer.innerHTML = "";
+
+                                                    [...files].forEach(file => {
+
+                                                        if (!file.type.startsWith("image/"))
+                                                            return;
+
+                                                        const reader = new FileReader();
+
+                                                        reader.onload = function (e) {
+
+                                                            const div = document.createElement("div");
+                                                            div.classList.add("preview-item");
+
+                                                            div.innerHTML = `
+                                                                <img src="${e.target.result}" alt="${file.name}">
+                                                            `;
+
+                                                            previewContainer.appendChild(div);
+                                                        };
+
+                                                        reader.readAsDataURL(file);
+                                                    });
+                                                }
+
+                                            });
+                    </script>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

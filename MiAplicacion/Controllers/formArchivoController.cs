@@ -33,5 +33,34 @@ namespace MiAplicacion.Controllers
             ViewBag.producto = prod;
             return View("ExitoArchivo"); 
         }
+        [Route("index2")]
+        public IActionResult multiple() {
+            return View("Index2", new Producto2());
+        }
+        [Route("Guardar2")]
+        [HttpPost]
+        public IActionResult Guardar2(Producto2 prod, IFormFile[] fotos)
+        {
+            if (ModelState.IsValid)
+            {
+                if (fotos == null || fotos.Length == 0)
+                    return Content("Error: Foto(s) no seleccionada(s)");
+                else
+                {
+                    prod.Fotos = new List<string>();
+                    foreach (IFormFile foto in fotos)
+                    {
+                        var ruta = Path.Combine(webHostEnvironment.WebRootPath, "imagenes", foto.FileName);
+                        var flujo = new FileStream(ruta, FileMode.Create);
+                        foto.CopyToAsync(flujo);
+                        prod.Fotos.Add(foto.FileName);
+                    }
+                }
+                ViewBag.producto = prod;
+                return View("ExitoArchivo2");
+            }
+            else
+                return View("Index2");
+        }
     }
 }
