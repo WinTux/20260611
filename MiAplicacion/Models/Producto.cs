@@ -14,14 +14,14 @@ namespace MiAplicacion.Models
     {
         [Required]
         [StringLength(7)]
-        [RegularExpression(@"^[a-zA-Z]{4}\d{3}$")]
+        [RegularExpression(@"^[a-zA-Z]{4}\d{3}$", ErrorMessage ="En Id tiene 4 letras y 3 numeros en ese orden.")]
         public string Id { get; set; }
         [Required]
-        [MinLength(5)]
-        [MaxLength(20)]
+        [MinLength(5, ErrorMessage ="Mínimo de 5 letras por favor")]
+        [MaxLength(20, ErrorMessage = "Máximo de 20 letras por favor")]
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
-        [Range(1,100)]
+        [Range(1,100, ErrorMessage = "Se debe ingresar un valor entre 1 y 100")]
         public int Cantidad { get; set; }
         public List<string> Fotos { get; set; }
         [EmailAddress]

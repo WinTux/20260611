@@ -62,6 +62,7 @@
                         <div class="mb-3">
                             <label asp-for="Id" class="form-label"></label>
                             <input asp-for="Id" class="form-control" />
+                            <span asp-validation-for="Id"></span>
                         </div>
 
                         <div class="mb-3">
@@ -75,12 +76,14 @@
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
                                 <input asp-for="Precio" class="form-control" />
+                                <span asp-validation-for="Precio"></span>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="Cantidad" class="form-label"></label>
                             <input asp-for="Cantidad" class="form-control" />
+                            <span asp-validation-for="Cantidad"></span>
                         </div>
 
                         <div class="mb-4">
