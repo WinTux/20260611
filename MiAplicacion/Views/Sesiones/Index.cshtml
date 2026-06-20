@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Http
+@using MiAplicacion.Herramientas
+@using MiAplicacion.Models
+
+@{
+    Producto prod = HerramientaSesion.ConvertirJsonAobjeto<Producto>(Context.Session, "producto");
+    List<Producto> prods = HerramientaSesion.ConvertirJsonAobjeto<List<Producto>>(Context.Session, "productos");
+}
+
+<div class="container mt-4">
+
+    <!-- Datos de sesión -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            Datos de Sesión
+        </div>
+        <div class="card-body">
+            <p><strong>Edad:</strong> @Context.Session.GetInt32("edad")</p>
+            <p><strong>Usuario:</strong> @Context.Session.GetString("usuario")</p>
+        </div>
+    </div>
+
+    <!-- Producto -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            Detalle del Producto
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <img src="~/imagenes/@prod.Foto"
+                         class="img-fluid rounded"
+                         alt="@prod.Nombre">
+                </div>
+
+                <div class="col-md-9">
+                    <h5>@prod.Nombre</h5>
+                    <p><strong>ID:</strong> @prod.Id</p>
+                    <p><strong>Precio:</strong> Bs. @prod.Precio</p>
+                    <p><strong>Cantidad:</strong> @prod.Cantidad</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            Lista de Productos
+        </div>
+
+        <div class="card-body">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Foto</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in prods)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/imagenes/@p.Foto"
+                                     width="70"
+                                     class="rounded"
+                                     alt="@p.Nombre" />
+                            </td>
+                            <td>@p.Id</td>
+                            <td>@p.Nombre</td>
+                            <td>Bs. @p.Precio</td>
+                            <td>@p.Cantidad</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
