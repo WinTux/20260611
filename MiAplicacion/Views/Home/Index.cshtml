@@ -1,7 +1,8 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http;
+@{
     ViewData["Title"] = "Home Page";
 }
-
+Esto es del ejemplo de sesiones: @Context.Session.GetString("usu") <br />
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -16,4 +17,5 @@
 <br />
 <a asp-controller="Formulario" asp-action="Index"> Ejemplo: formulario</a>
 <br />
-<a asp-controller="Archivo" asp-action="index2">Ejemplo: Formulario (manejo de multiples archivos y validación)</a>
+<a asp-controller="Archivo" asp-action="index2">Ejemplo: Formulario (manejo de multiples archivos y validación)</a><br />
+<a asp-controller="Login" asp-action="Index">Ejemplo uso de sesiones: Login</a>
