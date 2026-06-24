@@ -10,6 +10,59 @@ namespace MiAplicacion.Models
         public int Cantidad { get; set; }
         public string Foto { get; set; }
     }
+    #region Para ejemplo de sesión
+    public class Producto3 
+    {
+        public string Id { get; set; }
+        public string Nombre { get; set; }
+        public decimal Precio { get; set; }
+        public string Foto { get; set; }
+    }
+    public class Item
+    {
+        public Producto3 producto {  get; set; }
+        public int Cantidad { get; set; }
+    }
+    public class ProductoModel
+    {
+        private List<Producto3> productos;
+        public ProductoModel()
+        {
+            productos = new List<Producto3>()
+            {
+                new Producto3
+                {
+                    Id = "prod01",
+                    Nombre = "Helado",
+                    Precio = 13.5m,
+                    Foto = "helado1.jfif"
+                },
+                new Producto3
+                {
+                    Id = "prod02",
+                    Nombre = "Camisa",
+                    Precio = 143.8m,
+                    Foto = "camiseta.jpeg"
+                },
+                new Producto3
+                {
+                    Id = "prod03",
+                    Nombre = "Mapache",
+                    Precio = 713.5m,
+                    Foto = "mapache.jpg"
+                }
+            };
+        }
+        public List<Producto3> getTodos()
+        {
+            return this.productos;
+        }
+        public Producto3 buscar(string id)
+        {
+            return this.productos.Single(p => p.Id.Equals(id));
+        }
+    }
+    #endregion
     public class Producto2
     {
         [Required]

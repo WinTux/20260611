@@ -54,5 +54,12 @@ namespace MiAplicacion.Controllers
 
             return View("Index");
         }
+
+        public IActionResult EjemploCarrito()
+        {
+            var productoModel = new ProductoModel();
+            ViewBag.productos = productoModel.getTodos();
+            return View();
+        }
     }
 }
