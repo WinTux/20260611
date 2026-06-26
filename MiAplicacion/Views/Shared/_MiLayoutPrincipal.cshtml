@@ -1,0 +1,18 @@
+﻿<html>
+    <head>
+        <title>@ViewBag.titulo</title>
+        @RenderSection("head",false)
+    </head>
+    <body>
+        <a asp-controller="Layouts" asp-action="Home">Home</a> /
+        <a asp-controller="Layouts" asp-action="Acerca">Acerca de nosotros</a> /
+        <a asp-controller="Layouts" asp-action="Noticias">Noticias</a> /
+        <a asp-controller="Layouts" asp-action="Acerca1">Acerca (Anidado)</a>  /
+        <a asp-controller="Layouts" asp-action="Noticias1">Noticias (Anidado)</a>
+
+        <br /><br />
+        @RenderBody()
+        <br /><br />
+    © 2026 - MiAplicacion
+    </body>
+</html>

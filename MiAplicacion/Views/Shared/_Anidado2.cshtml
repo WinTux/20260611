@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.titulo = "Anidado 2";
+    Layout = "~/Views/Shared/_MiLayoutPrincipal.cshtml";
+}
+
+<a href="@Url.Action("Noticias1", "Layouts")">Noticias de (anidado)</a>
+<a href="@Url.Action("Noticias2", "Layouts")">Noticias de (anidado 2)</a>
+<br />
+<br />
+@RenderBody()
