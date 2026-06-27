@@ -32,6 +32,7 @@ namespace MiAplicacion.Controllers
             };
             return new JsonResult(producto);
         }
+        [Route("ejemplo4")]
         public IActionResult Ejemplo4()
         {
             List<Producto3> productos = new List<Producto3>() {

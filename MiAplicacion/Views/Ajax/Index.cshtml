@@ -1,16 +1,55 @@
-﻿<script type="text/javascript">
+﻿<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript">
     $(document).ready(function () {
         $('#btnEjemplo1').click(function () {
-            
+            $.ajax({
+                type: 'GET',
+                url: '/ajax/ejemplo1',
+                success: function (respuesta){
+                    $('#resultado1').html(respuesta);
+                }
+            });
         });
         $('#btnEjemplo2').click(function () {
-            
+            var nom = $('#nombre').val();
+            $.ajax({
+                type: 'GET',
+                url: '/ajax/ejemplo2/' + nom,
+                success: function (respuesta){
+                    $('#resultado2').html(respuesta);
+                }
+            });
         });
         $('#btnEjemplo3').click(function () {
-            
+            $.ajax({
+                type: 'GET',
+                url: '/ajax/ejemplo3',
+                success: function (respuesta){
+                    var s = 'ID: ' + respuesta.id;
+                    s += '<br>Nombre: ' + respuesta.nombre;
+                    s += '<br>Precio: ' + respuesta.precio;
+                    s += '<br>Foto: ' + respuesta.foto;
+                    $('#resultado3').html(s);
+                }
+            });
         });
         $('#btnEjemplo4').click(function () {
-            
+            $.ajax({
+                type: 'GET',
+                url: '/ajax/ejemplo4',
+                success: function (respuestas){
+                    var s = '<table border="1">'
+                    for (var i = 0; i < respuestas.length; i++) {
+                        s += '<tr><td>ID:</td><td>' + respuestas[i].id + '</td>';
+                        s += '<tr><td>Nombre:</td><td>' + respuestas[i].nombre + '</td>';
+                        s += '<tr><td>Precio:</td><td>' + respuestas[i].precio + '</td>';
+                        s += '<tr><td>Foto:</td><td>' + respuestas[i].foto + '</td>';
+                        s += '<tr><td>=======</td><td>========</td>';
+                    }
+                    s += '</table>';
+                    $('#resultado4').html(s);
+                }
+            });
         });
     });
 </script>

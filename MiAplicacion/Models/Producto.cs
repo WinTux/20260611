@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MiAplicacion.Models
 {
+    [Table("Producto")]
     public class Producto
     {
+        [Key]
         public string Id { get; set; }
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
