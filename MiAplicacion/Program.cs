@@ -1,3 +1,6 @@
+using MiAplicacion.Herramientas;
+using Microsoft.EntityFrameworkCore;
+
 namespace MiAplicacion
 {
     public class Program
@@ -9,6 +12,7 @@ namespace MiAplicacion
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession();
+            builder.Services.AddDbContext<MinimarketContext>(o => o.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("ReplicaLaPaz")));
 
             var app = builder.Build();
 
