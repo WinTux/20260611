@@ -17,6 +17,8 @@ namespace MiAplicacion.Controllers
         public IActionResult Index()
         {
             ViewBag.productos = db.productos.ToList();
+            // Viene del ejemplo de eliminacion logica de Eliminar
+            //ViewBag.productos = db.productos.Where(p => p.Estado == true).ToList();
             return View();
         }
         [HttpGet]
@@ -47,6 +49,21 @@ namespace MiAplicacion.Controllers
         {
             db.Entry(prod).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        
+        [Route("Eliminar")]
+        public IActionResult Eliminar(string id)
+        {
+            // Eliminacion fisica del producto
+            db.productos.Remove(db.productos.Find(id));
+            db.SaveChanges();
+            // Eliminacion logica del producto
+            /*Producto producto = db.productos.Find(id);
+            producto.Estado = false;
+            db.Entry(producto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.SaveChanges();*/
             return RedirectToAction("Index");
         }
     }
