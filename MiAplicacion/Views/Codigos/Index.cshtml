@@ -1,0 +1,36 @@
+﻿<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Generar código QR</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Generar" asp-controller="Codigos" method="post">
+                        <div class="mb-3">
+                            <label for="valor" class="form-label">
+                                Valor para el código QR
+                            </label>
+                            <input type="text"
+                                   id="valor"
+                                   name="valor"
+                                   class="form-control"
+                                   placeholder="Ingrese el valor para el código QR"
+                                   value="@ViewBag.valor" />
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-qr-code"></i> Generar código QR
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.valor != null)
+{
+    <codigoqr contenido="@ViewBag.valor" ancho="200" alto="200"/>
+}
